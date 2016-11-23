@@ -1,5 +1,5 @@
 # generator-sh-base-styles [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
-> Yoeman generator for Salted Herring base styels
+> Yoeman generator for Salted Herring base styles
 
 ## Installation
 
