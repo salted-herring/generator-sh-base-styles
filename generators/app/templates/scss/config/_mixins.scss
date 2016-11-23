@@ -1,0 +1,277 @@
+/**
+ * @file _mixins.scss
+ *
+ * Various mixins used throughout the stylesheets.
+ * */
+@import "compass/support";
+@import "compass/css3/box-sizing";
+
+/**
+ * Hack to override issue with compass box-sizing parsing of strings.
+ * */
+@mixin box-sizing($box-model: $default-box-sizing) {
+    @include prefixed-properties(css3-boxsizing, $box-sizing-support-threshold, (box-sizing: $box-model));
+}
+
+@mixin kerning {
+    font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+    -moz-font-feature-settings: "kern";
+    -moz-font-feature-settings: "kern=1";
+}
+
+@function rem($size: $font_size) {
+  @return (strip-units($size)/strip-units($font_size))+rem;
+}
+
+@function em($size: $font_size, $target: $font_size) {
+  @return (strip-units($size)/strip-units($target))+em;
+}
+
+@function strip-units($value) {
+    @return $value / ($value * 0 + 1);
+}
+
+@mixin placeholder($selector : null) {
+
+    @if $selector == null {
+        ::-webkit-input-placeholder {
+            @content;
+        }
+        ::-moz-placeholder {
+            @content;
+        } /* firefox 19+ */
+        :-ms-input-placeholder {
+            @content;
+        } /* ie */
+        input:-moz-placeholder {
+            @content;
+        }
+    } @else {
+        /* individual: webkit */
+        #{$selector}::-webkit-input-placeholder {
+            @content;
+        }
+        #{$selector}::-webkit-input-placeholder {
+            @content;
+        }
+        #{$selector}::-webkit-input-placeholder {
+            @content;
+        }
+
+        /* individual: mozilla */
+        #{$selector}::-moz-placeholder {
+            @content;
+        }
+        #{$selector}::-moz-placeholder {
+            @content;
+        }
+        #{$selector}::-moz-placeholder {
+            @content;
+        }
+    }
+
+
+}
+
+/**
+ * Vertical alignment transformation
+ * */
+@mixin vertical-align($position: relative) {
+    @include transform(translateY(-50%));
+
+    position: $position;
+    top: 50%;
+}
+
+/**
+ * Horizontal alignment transformation
+ * */
+@mixin horizontal-align($position: relative, $additionalTransforms: false)
+{
+    @if $additionalTransforms != false {
+        @include transform(translateX(-50%) $additionalTransforms);
+    } @else {
+        @include transform(translateX(-50%));
+    }
+
+    position: $position;
+    left: 50%;
+}
+
+@mixin center-align($position: absolute)
+{
+    @include transform(translate(-50%, -50%));
+
+    top: 50%;
+    left: 50%;
+    position: $position;
+}
+
+/**
+ * Clip path
+ * */
+@mixin clip-path($clip)
+{
+    -webkit-clip-path: $clip;
+    -moz-clip-path: $clip;
+    -ms-clip-path: $clip;
+    clip-path: $clip;
+}
+
+/**
+ * Font smoothing - see: https://maximilianhoffmann.com/posts/better-font-rendering-on-osx
+ * */
+@mixin font-smoothing($value: antialiased)
+{
+    @if $value == antialiased {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    @else {
+        -webkit-font-smoothing: subpixel-antialiased;
+        -moz-osx-font-smoothing: auto;
+    }
+}
+
+/*
+ * Font feature settings - see: https://github.com/bitmanic/font-feature-settings
+ * */
+@mixin font-feature-settings($feature-list: false)
+{
+    // Only proceed if a list of arguments was passed
+    @if $feature-list
+    {
+        // Create an empty list for the standard syntax
+        $standard: ();
+
+        // Create an empty list for the old Mozilla syntax
+        $old-moz: ();
+
+        // Add each listed feature to the standard and old Mozilla values
+        @each $feature in $feature-list
+        {
+            $standard: append( $standard, '#{$feature}' 1, comma );
+            $old-moz: append( $old-moz, '#{$feature}=1', comma );
+        }
+
+        // Finally, print out the prefixed and non-prefixed code for all of the listed features
+        -moz-font-feature-settings: $old-moz;
+        -moz-font-feature-settings: $standard;
+        -ms-font-feature-settings: $standard;
+        -o-font-feature-settings: $standard;
+        -webkit-font-feature-settings: $standard;
+        font-feature-settings: $standard;
+    }
+}
+
+/**
+ * Grouping content - e.g. rows - fixes float boxes.
+ * */
+@mixin group {
+    overflow: visible;
+
+    &:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+/**
+ * Triangle generation
+ * */
+@mixin triangle($width: 10px, $height: 5px, $color: $we-green, $direction: down)
+{
+    width: 0;
+    height: 0;
+    border-style: solid;
+
+    @if $direction == down {
+        border-width: $height ($width/2) 0 ($width/2);
+        border-color: $color transparent transparent transparent;
+    }
+
+    @if $direction == up {
+        border-width: 0 ($width/2) $height ($width/2);
+        border-color: transparent transparent $color transparent;
+    }
+
+    @if $direction == left {
+        border-width: ($height/2) $width ($height/2) 0;
+        border-color: transparent $color transparent transparent;
+    }
+
+    @if $direction == right {
+        border-width: ($height/2) 0 ($height/2) $width;
+        border-color: transparent transparent transparent $color;
+    }
+
+    @if $direction == topleft {
+        border-width: $height $width 0 0;
+        border-color: $color transparent transparent transparent;
+    }
+
+    @if $direction == bottomright {
+        border-width: 0 0 $height $width;
+        border-color: transparent transparent $color transparent;
+    }
+
+    @if $direction == bottomleft {
+        border-width: $height 0 0 $width;
+        border-color: transparent transparent transparent $color;
+    }
+}
+
+/**
+ * How to make 3-corner-rounded triangle in CSS (SO)
+ * http://stackoverflow.com/q/14446677/1397351
+ */
+@mixin round-triangle($width: 40, $height: 40, $colour: $we-white, $position: relative) {
+    @include transform(
+        rotate(-60deg) skewX(-30deg) scale(1, .866)
+    );
+
+    display: block;
+    position: $position;
+    background-color: $colour;
+    text-align: left;
+    width:  rem($width);
+    height: rem($height);
+    border-top-right-radius: 30%;
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        background-color: inherit;
+
+        width:  rem($width);
+        height: rem($height);
+        border-top-right-radius: 30%;
+    }
+
+    &:before {
+        @include transform(
+            rotate(-135deg) skewX(-45deg) scale(1.414, .707) translate(0,-50%)
+        );
+    }
+
+    &:after {
+        @include transform(
+            rotate(135deg) skewY(-45deg) scale(.707, 1.414) translate(50%)
+        );
+    }
+}
+
+/**
+ * Disable text selection
+ * */
+@mixin disable-selection {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* IE/Edge */
+    user-select: none;           /* non-prefixed version, currently
+                                    not supported by any browser */
+}

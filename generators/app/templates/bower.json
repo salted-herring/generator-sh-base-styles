@@ -1,0 +1,17 @@
+{
+  "name": "generator-sh-base-styles",
+  "description": "Yoeman generator for Salted Herring base styles",
+  "main": "index.js",
+  "authors": [
+    "Simon Winter <simon@saltedherring.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/salted-herring/generator-sh-base-styles",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -1,0 +1,157 @@
+/**
+ * @file _grid.scss
+ *
+ * Grid configuration
+ * */
+$susy: (
+	container: 			$container-width,
+	column-width: 		$column-width,
+	gutters: 			1/3,
+	gutter-position: 	split,
+	columns: 			$total-columns,
+	global-box-sizing: 	border-box,
+	spread: 			narrow,
+	math:				static
+);
+
+
+
+.container {
+	@include container;
+	max-width: 100%;
+}
+
+.row {
+	@include clearfix;
+	@include break;
+
+	&.overflow {
+		overflow: visible;
+	}
+
+	&.padding {
+    	padding: {
+        	left: gutter();
+        	right: gutter()
+    	}
+	}
+}
+
+.grid {
+    word-break: break-word;
+}
+
+@for $i from 1 through $total-columns {
+	.grid_#{$i} {
+		@include span($i of $total-columns);
+
+		@if $i != $total-columns {
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+
+		&.center {
+			&:last-child {
+				margin-right: auto;
+			}
+		}
+	}
+
+	.grid_#{$i}_wide {
+		width: span($i);
+	}
+}
+
+/**
+ * Any grid elements marked as first or last should remove the appropriate margins.
+ * */
+[class*="grid_"] {
+	&.first {
+		@include first;
+	}
+
+	&.last {
+		@include last;
+	}
+}
+
+/**
+ * FIrst item - no padding.
+ * */
+.alpha {
+	@include bleed-x($gutter-width 0 no-gutters);
+	padding-right: 0;
+}
+
+@for $j from 1 through $total-columns {
+	.spacer_#{$j} {
+		@include pre($j of $total-columns);
+	}
+
+	.after_#{$j} {
+		@include post($j of $total-columns);
+	}
+}
+
+
+/* ===========================
+ * Responsive Grid
+ * =========================== */
+
+@include breakpoint($container) {
+    .container {
+        padding-left: $gutter-width;
+        padding-right: $gutter-width;
+        max-width: rem(768);
+        width: 100%;
+    }
+
+    @for $i from ($total-columns/2) to $total-columns {
+        .grid_#{$i} {
+            width: 100%;
+            margin: {
+                left: 0;
+                right: 0;
+            }
+        }
+    }
+}
+
+
+/**
+ * Anything less than 960 -> down to portrait iPad.
+ * */
+@include susy-breakpoint($container_ipadTo960) {
+
+
+}
+
+/**
+ * Larger screens (up to ipad portrait).
+ * */
+@include susy-breakpoint($container_largerPhones) {
+
+}
+
+/**
+ * Anything smaller.
+ * */
+@include susy-breakpoint($container_small) {
+
+    @for $i from 1 through 5 {
+	    .grid_#{$i} {
+    	    width: 100%;
+    	    max-width: rem(300);
+    	    margin: {
+        	    left: auto;
+        	    right: auto;
+    	    }
+    	    float: none;
+
+    	    &:last-child {
+        	    margin-right: auto;
+    	    }
+        }
+    }
+}

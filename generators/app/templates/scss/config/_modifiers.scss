@@ -1,0 +1,228 @@
+/**
+ * @file _modifiers.scss
+ *
+ * All generic modifiers used throughout the site.
+ * */
+
+/**
+ * Centre content.
+ * */
+.centre {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/**
+ * Clearfix
+ * */
+.clearfix {
+	@include clearfix();
+}
+
+/**
+ * Floats
+ * */
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+/**
+ * Group content - i.e. clearfix (group seems a better fit semantically).
+ * */
+.group {
+    @include group;
+}
+
+/**
+ * Generic colours
+ * */
+@each $name, $hex in $GLOBAL_COLOURS {
+    .colour-#{$name} {
+        color: #{$hex};
+    }
+
+    .background-#{$name} {
+        background: #{$hex};
+    }
+
+    a:link,
+    a:visited {
+        &.colour-#{$name} {
+            color: #{$hex};
+        }
+    }
+}
+
+/**
+ * Hide text
+ * */
+.hide_text {
+    @include hide_text;
+}
+
+/**
+ * Hide overflow
+ * */
+.overflow-hidden {
+    overflow: hidden;
+}
+
+/**
+ * Antialiasing
+ * */
+.antialiased {
+    @include font-smoothing;
+}
+
+/**
+ * Uppercase text
+ * */
+.uppercase {
+    text-transform: uppercase;
+}
+
+/**
+ * centred text.
+ * */
+.text-center {
+    text-align: center;
+}
+
+/**
+ * Font weights
+ * */
+/*
+.font-weight {
+    &-bold {
+    	font-weight: bold;
+    }
+
+    &-semi-bold {
+    	font-weight: 400;
+    }
+
+    &-medium {
+    	font-weight: 200;
+    }
+
+    &-regular,
+    &-normal {
+    	font-family: 'ProximaNovaSoft', Arial, 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif;
+    	font-weight: normal;
+    }
+}
+*/
+
+/**
+ * Consistent margin above & below a block
+ * */
+.margin-top {
+    margin-top: rem($margin);
+}
+.margin-bottom {
+    margin-bottom: rem($margin);
+}
+
+@include breakpoint($container) {
+    .margin-top {
+        padding-top: rem($margin/2);
+    }
+    .margin-bottom {
+        padding-bottom: rem($margin/2);
+    }
+}
+
+/**
+ * Max width containers - at responsive sizes, there should be a max width.
+ * */
+.max-width {
+
+}
+
+@include breakpoint($container_small) {
+    .max-width {
+        width: 100%;
+        max-width: rem(300);
+        margin: {
+            left: auto;
+            right: auto;
+        }
+        float: none;
+    }
+}
+
+.single-max-width {
+    @include breakpoint($container) {
+        max-width: rem($max-width-single-column);
+        width: 100%;
+        margin: {
+            left: auto;
+            right: auto;
+        }
+        float: none;
+    }
+}
+
+/**
+ * Heights
+ * */
+.full-height {
+    height: 100%;
+}
+
+@include breakpoint($container) {
+    .full-height {
+        height: auto;
+    }
+}
+
+
+/**
+ * Mobile only content
+ * */
+.mobile-only {
+    display: none;
+}
+
+@include breakpoint($container) {
+    .mobile-only {
+        display: block;
+    }
+}
+
+/**
+ * Text alignment
+ * */
+.text-left {
+    text-align: left;
+}
+.text-centre {
+    text-align: center;
+}
+.text-right {
+    text-align: right;
+}
+
+/**
+ * Error class
+ * */
+.error {
+    // set error colour.
+    //color: ;
+}
+
+
+// Since you've installed the xml file, you should set
+// $use-mozilla-ellipsis-binding to true before importing.
+$use-mozilla-ellipsis-binding: true;
+@import "compass/typography/text/ellipsis";
+
+// You can delete this sass file if you want, it's just an example of how to use the ellipsis mixin.
+// By default, ellipsis text is no-wrap. Pass false as the first argument if you don't want that.
+.ellipsis {
+    @include ellipsis;
+}

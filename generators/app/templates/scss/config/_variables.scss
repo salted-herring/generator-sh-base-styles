@@ -1,0 +1,31 @@
+/* ===========================
+ * Typography
+ * =========================== */
+$font_size: 16;
+
+
+/* ===========================
+ * Grid
+ * =========================== */
+$container-width: 960px;
+$total-columns: 12;
+$column-width: 60px;
+$gutter-width: 20px;
+$grid-padding: 10px;
+$margin: 16;
+
+/**
+ * Responsive breakpoints
+ * */
+$container: max-width 959px;
+$max-width-single-column: 640;
+$container_ipadTo960: 768px 959px;
+$container_largerPhones: 640px 767px;
+$container_small: 0 639px;
+
+
+/**
+ * Grid Sizes
+ * */
+$_960Grid: (columns: 3, gutters: 1/15, column-width: 300px, math: fluid);
+$_768Grid: (columns: 2, gutters: 1/15, column-width: 300px, math: fluid);

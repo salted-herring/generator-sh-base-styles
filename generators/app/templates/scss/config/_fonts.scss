@@ -1,0 +1,75 @@
+/**
+ * @file _fonts.scss
+ *
+ * Fonts used in the project
+ * */
+
+/**
+ * Fontello
+ * */
+/*
+@include font-face('fontello', font-files('fontello.woff', 'fontello.woff2', 'fontello.ttf', 'fontello.svg'), 'fontello.eot', normal,
+					normal);
+*/
+
+
+/**
+ * Example font import:
+ * */
+/*
+@include font-face('RealtimeStencil', font-files('30669F_0_0.woff', '30669F_0_0.woff2', '30669F_0_0.ttf',
+										'30669F_0_0.svg'), '30669F_0_0.eot', bold, normal);
+*/
+
+
+/**
+ * The default font stack.
+ * */
+$default_font_family: Helvetica, Arial, sans-serif;
+
+
+/**
+ * Fontello config:
+ * - Update with the values output by fontello.
+ * */
+$icons: (
+	//dashboard:		'\e800',
+);
+
+@mixin icon($icon: dashboard, $font-size: rem(14), $position: before, $hide-font: true) {
+
+	@if $hide-font {
+		font-size: 0;
+		line-height: 0;
+		text-indent: -1000000px;
+	}
+
+	&:#{$position} {
+		font-family: "fontello";
+		font-style: normal;
+		font-weight: normal;
+		font-size: $font-size;
+		text-indent: 0;
+		speak: none;
+
+		display: inline-block;
+		text-decoration: inherit;
+		text-align: center;
+		font-variant: normal;
+		text-transform: none;
+
+		line-height: 1em;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+
+		content: map-get($icons, $icon);
+
+		@content;
+	}
+}
+
+@each $key, $value in $icons {
+  .icon-#{$key} {
+    @include icon($key);
+  }
+}
