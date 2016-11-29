@@ -7,19 +7,20 @@ $font_size: 16;
 /* ===========================
  * Grid
  * =========================== */
-$container-width: 960px;
-$total-columns: 12;
-$column-width: 60px;
-$gutter-width: 20px;
+$container-width: containerwidthpx;
+$total-columns: columnstotal;
+$column-width: columnwidthpx;
+$gutter-width: gutterwidthpx;
 $grid-padding: 10px;
+$gutter-ratio: gutterratio;
 $margin: 16;
 
 /**
  * Responsive breakpoints
  * */
-$container: max-width 959px;
+$container: max-width maxwidthpx;
 $max-width-single-column: 640;
-$container_ipadTo960: 768px 959px;
+$container_ipadTo960: 768px maxwidthpx1;
 $container_largerPhones: 640px 767px;
 $container_small: 0 639px;
 

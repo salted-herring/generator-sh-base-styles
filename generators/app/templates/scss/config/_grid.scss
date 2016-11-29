@@ -4,37 +4,37 @@
  * Grid configuration
  * */
 $susy: (
-	container: 			$container-width,
-	column-width: 		$column-width,
-	gutters: 			1/3,
-	gutter-position: 	split,
-	columns: 			$total-columns,
-	global-box-sizing: 	border-box,
-	spread: 			narrow,
-	math:				static
+  container:          $container-width,
+  column-width:       $column-width,
+  gutters:            1/3,
+  gutter-position:    split,
+  columns:            $total-columns,
+  global-box-sizing:  border-box,
+  spread:             narrow,
+  math:               static
 );
 
 
 
 .container {
-	@include container;
-	max-width: 100%;
+  @include container;
+  max-width: 100%;
 }
 
 .row {
-	@include clearfix;
-	@include break;
+  @include clearfix;
+  @include break;
 
-	&.overflow {
-		overflow: visible;
-	}
+  &.overflow {
+    overflow: visible;
+  }
 
-	&.padding {
-    	padding: {
-        	left: gutter();
-        	right: gutter()
-    	}
-	}
+  &.padding {
+      padding: {
+          left: gutter();
+          right: gutter()
+      }
+  }
 }
 
 .grid {
@@ -42,56 +42,56 @@ $susy: (
 }
 
 @for $i from 1 through $total-columns {
-	.grid_#{$i} {
-		@include span($i of $total-columns);
+  .grid_#{$i} {
+    @include span($i of $total-columns);
 
-		@if $i != $total-columns {
-			&:last-child {
-				margin-right: 0;
-			}
-		}
+    @if $i != $total-columns {
+      &:last-child {
+        margin-right: 0;
+      }
+    }
 
-		&.center {
-			&:last-child {
-				margin-right: auto;
-			}
-		}
-	}
+    &.center {
+      &:last-child {
+        margin-right: auto;
+      }
+    }
+  }
 
-	.grid_#{$i}_wide {
-		width: span($i);
-	}
+  .grid_#{$i}_wide {
+    width: span($i);
+  }
 }
 
 /**
  * Any grid elements marked as first or last should remove the appropriate margins.
  * */
 [class*="grid_"] {
-	&.first {
-		@include first;
-	}
+  &.first {
+    @include first;
+  }
 
-	&.last {
-		@include last;
-	}
+  &.last {
+    @include last;
+  }
 }
 
 /**
  * FIrst item - no padding.
  * */
 .alpha {
-	@include bleed-x($gutter-width 0 no-gutters);
-	padding-right: 0;
+  @include bleed-x($gutter-width 0 no-gutters);
+  padding-right: 0;
 }
 
 @for $j from 1 through $total-columns {
-	.spacer_#{$j} {
-		@include pre($j of $total-columns);
-	}
+  .spacer_#{$j} {
+    @include pre($j of $total-columns);
+  }
 
-	.after_#{$j} {
-		@include post($j of $total-columns);
-	}
+  .after_#{$j} {
+    @include post($j of $total-columns);
+  }
 }
 
 
@@ -140,18 +140,18 @@ $susy: (
 @include susy-breakpoint($container_small) {
 
     @for $i from 1 through 5 {
-	    .grid_#{$i} {
-    	    width: 100%;
-    	    max-width: rem(300);
-    	    margin: {
-        	    left: auto;
-        	    right: auto;
-    	    }
-    	    float: none;
+      .grid_#{$i} {
+          width: 100%;
+          max-width: rem(300);
+          margin: {
+              left: auto;
+              right: auto;
+          }
+          float: none;
 
-    	    &:last-child {
-        	    margin-right: auto;
-    	    }
+          &:last-child {
+              margin-right: auto;
+          }
         }
     }
 }
