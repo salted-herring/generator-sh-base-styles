@@ -88,11 +88,6 @@ module.exports = yeoman.Base.extend({
     );
 
     this.fs.copy(
-      this.templatePath('bower.json'),
-      this.destinationPath('bower.json')
-    );
-
-    this.fs.copy(
       this.templatePath('.ruby-version'),
       this.destinationPath('.ruby-version')
     );
