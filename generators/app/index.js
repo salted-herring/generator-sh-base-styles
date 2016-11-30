@@ -32,6 +32,13 @@ module.exports = yeoman.Base.extend({
         message : 'How wide are your gutters?',
         store   : true,
         default : 20
+      },
+      {
+        type    : 'input',
+        name    : 'show_debug',
+        message : 'Show grid debug? (Y/N)',
+        store   : true,
+        default : 'Y'
       }
     ];
 
@@ -39,7 +46,9 @@ module.exports = yeoman.Base.extend({
       this.props = props;
       var grid = props;
 
-      var width = props.grid_width - (props.number_columns * props.gutter_width);
+      console.log(chalk.red('Grid setup complete'));
+
+      var width = props.grid_width - (2 * props.number_columns * (props.gutter_width/2));
       width /= props.number_columns;
 
       var gutters = props.gutter_width / width;
@@ -88,6 +97,11 @@ module.exports = yeoman.Base.extend({
       this.destinationPath('.ruby-version')
     );
 
+    this.fs.copy(
+      this.templatePath('index.html'),
+      this.destinationPath('index.html')
+    );
+
     /**
      * Set up the grunt file.
      * */
@@ -98,14 +112,14 @@ module.exports = yeoman.Base.extend({
             expand: true,
             flatten: true,
             cwd: 'scss/config/',
-            src: '_variables.scss',
+            src: ['_variables.scss', '_grid.scss'],
             dest: 'scss/config/'
           }
         ],
         options: {
           replacements: [
             {
-                pattern: "containerwidthpx",
+                pattern: "containerwidth",
                 replacement: '%width'
             },
             {
@@ -113,11 +127,11 @@ module.exports = yeoman.Base.extend({
                 replacement: '%columns'
             },
             {
-                pattern: "columnwidthpx",
+                pattern: "columnwidth",
                 replacement: '%columnwidthpx'
             },
             {
-                pattern: "gutterwidthpx",
+                pattern: "gutterwidth",
                 replacement: '%gutterwidthpx'
             },
             {
@@ -125,20 +139,27 @@ module.exports = yeoman.Base.extend({
                 replacement: '%gutterratio'
             },
             {
-                pattern: "maxwidthpx",
+                pattern: "maxwidth",
                 replacement: '%maxwidthpx'
             },
             {
-                pattern: "maxwidthpx1",
+                pattern: "maxwidth1",
                 replacement: '%maxwidthpx1'
             },
+            {
+              pattern: "showdebug",
+              replacement: '%showdebug'
+            }
           ]
         }
       }
     };
 
     var _json = JSON.stringify(_config),
-      max_width = (this.config.get('grid').grid_width - 1) + 'px';
+      max_width = (this.config.get('grid').grid_width - 1),
+      show_debug = this.config.get('grid').show_debug.toLowerCase();
+
+    show_debug = show_debug == 'y' ? 'show' : 'hide';
 
     _json = _json.replace('%width', this.config.get('grid').grid_width);
     _json = _json.replace('%columns', this.config.get('grid').number_columns);
@@ -147,22 +168,48 @@ module.exports = yeoman.Base.extend({
     _json = _json.replace('%gutterratio', this.config.get('grid').gutter_ratio);
     _json = _json.replace('%maxwidthpx', max_width);
     _json = _json.replace('%maxwidthpx1', max_width);
+    _json = _json.replace('%showdebug', show_debug);
 
     this.gruntfile.insertConfig('\'string-replace\'', _json);
     this.gruntfile.loadNpmTasks('grunt-string-replace');
-    this.gruntfile.registerTask('build', 'string-replace');
+    this.gruntfile.registerTask('grid', ['string-replace']);
+
+    //
+    // Set up compass bundle task
+    //
+    var _config = {
+      dist: {
+        options: {
+          sassDir: 'scss',
+          cssDir: 'css',
+          environment: 'production',
+          bundleExec: true
+        }
+      },
+      dev: {
+        options: {
+          sassDir: 'scss',
+          cssDir: 'css',
+          bundleExec: true
+        }
+      }
+    }
+
+    this.gruntfile.insertConfig('compass', JSON.stringify(_config));
+    this.gruntfile.loadNpmTasks('grunt-contrib-compass');
+    this.gruntfile.registerTask('css', ['compass']);
   },
 
   install: function () {
     this.installDependencies({
       callback: function() {
-        console.log(chalk.gray('Writing the grid config...'));
-        this.spawnCommand('grunt', ['build']);
+//         console.log(chalk.gray('Writing the grid config...'));
+        this.spawnCommand('grunt', ['grid', 'compass:dev']);
       }.bind(this)
     });
   },
 
   end: function() {
-    console.log(chalk.green('✔ Grid config updated!'));
+//     console.log(chalk.green('✔ Grid config updated!'));
   }
 });

@@ -6,12 +6,18 @@
 $susy: (
   container:          $container-width,
   column-width:       $column-width,
-  gutters:            1/3,
+  gutters:            $gutter-ratio,
   gutter-position:    split,
   columns:            $total-columns,
   global-box-sizing:  border-box,
   spread:             narrow,
-  math:               static
+  math:               static,
+  debug: (
+    image:  showdebug,
+    color:  blue,
+    output: overlay,
+    toggle: top right
+  )
 );
 
 
@@ -19,6 +25,17 @@ $susy: (
 .container {
   @include container;
   max-width: 100%;
+
+  &.test {
+    [class^='grid_'] {
+      height: rem(100);
+      background: olive;
+    }
+
+    .row {
+      background: gray;
+    }
+  }
 }
 
 .row {
