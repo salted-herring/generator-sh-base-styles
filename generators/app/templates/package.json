@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "generator-sh-base-styles": "^0.0.7",
     "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",
     "grunt-bg-shell": "^2.3.3",

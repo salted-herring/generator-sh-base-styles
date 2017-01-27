@@ -97,6 +97,11 @@ module.exports = yeoman.Base.extend({
       this.destinationPath('index.html')
     );
 
+    this.fs.copy(
+      this.templatePath('bower.json'),
+      this.destinationPath('bower.json')
+    );
+
     /**
      * Set up the grunt file.
      * */
