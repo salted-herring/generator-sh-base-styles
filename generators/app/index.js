@@ -67,20 +67,20 @@ module.exports = yeoman.Base.extend({
       this.destinationPath('scss')
     );
 
-    this.fs.copy(
-      this.templatePath('config.rb'),
-      this.destinationPath('config.rb')
-    );
+    // this.fs.copy(
+    //   this.templatePath('config.rb'),
+    //   this.destinationPath('config.rb')
+    // );
 
-    this.fs.copy(
-      this.templatePath('Gemfile'),
-      this.destinationPath('Gemfile')
-    );
+    // this.fs.copy(
+    //   this.templatePath('Gemfile'),
+    //   this.destinationPath('Gemfile')
+    // );
 
-    this.fs.copy(
-      this.templatePath('watcher-compass.sh'),
-      this.destinationPath('watcher-compass.sh')
-    );
+    // this.fs.copy(
+    //   this.templatePath('watcher-compass.sh'),
+    //   this.destinationPath('watcher-compass.sh')
+    // );
 
     this.fs.copy(
       this.templatePath('package.json'),
@@ -92,10 +92,10 @@ module.exports = yeoman.Base.extend({
       this.destinationPath('gulpfile.js')
     );
 
-    this.fs.copy(
-      this.templatePath('.ruby-version'),
-      this.destinationPath('.ruby-version')
-    );
+    // this.fs.copy(
+    //   this.templatePath('.ruby-version'),
+    //   this.destinationPath('.ruby-version')
+    // );
 
     this.fs.copy(
       this.templatePath('index.html'),
@@ -179,42 +179,17 @@ module.exports = yeoman.Base.extend({
     this.gruntfile.loadNpmTasks('grunt-string-replace');
     this.gruntfile.registerTask('grid', ['string-replace']);
 
-    //
-    // Set up compass bundle task
-    //
-    var _config = {
-      dist: {
-        options: {
-          sassDir: 'scss',
-          cssDir: 'css',
-          environment: 'production',
-          bundleExec: true
-        }
-      },
-      dev: {
-        options: {
-          sassDir: 'scss',
-          cssDir: 'css',
-          bundleExec: true
-        }
-      }
-    }
-
-    // this.gruntfile.insertConfig('compass', JSON.stringify(_config));
-    // this.gruntfile.loadNpmTasks('grunt-contrib-compass');
-    // this.gruntfile.registerTask('css', ['compass']);
   },
 
   install: function () {
     this.installDependencies({
       callback: function() {
-//         console.log(chalk.gray('Writing the grid config...'));
         this.spawnCommand('grunt', ['grid']);
+        this.spawnCommand('gulp', ['sass']);
       }.bind(this)
     });
   },
 
   end: function() {
-//     console.log(chalk.green('✔ Grid config updated!'));
   }
 });

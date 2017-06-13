@@ -177,6 +177,10 @@
     }
 }
 
+@mixin clearfix {
+    @include group;
+}
+
 /**
  * Triangle generation
  * */

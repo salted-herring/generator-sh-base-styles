@@ -12,25 +12,25 @@ body {
 body {
     @extend .antialiased;
     font-family: $default_font_family;
-	font-size: rem(14);
-	line-height: em(16, 14);
+    font-size: rem(14);
+    line-height: em(16, 14);
 }
 
 body,
 p,
 li {
-	font-size: rem(14);
-	line-height: em(16, 14);
-	font-weight: normal;
+    font-size: rem(14);
+    line-height: em(16, 14);
+    font-weight: normal;
 }
 
 a {
-	text-decoration: none;
-	@include transition(all .2s);
+    text-decoration: none;
+    transition: all .2s;
 
-	&:hover {
+    &:hover {
 
-	}
+    }
 }
 
 p {
@@ -49,14 +49,14 @@ h3,
 h4,
 h5,
 h6 {
-	line-height: 1.2em;
-	margin-bottom: rem(22);
+    line-height: 1.2em;
+    margin-bottom: rem(22);
 }
 
 h1 {
-	font-weight: 200;
-	line-height: 1em;
-	font-size: rem(42);
+    font-weight: 200;
+    line-height: 1em;
+    font-size: rem(42);
 }
 
 h2 {
@@ -66,4 +66,3 @@ h2 {
 h3 {
    font-size: rem(28);
 }
-
