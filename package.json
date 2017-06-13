@@ -1,6 +1,6 @@
 {
   "name": "generator-sh-base-styles",
-  "version": "0.0.8-dev",
+  "version": "0.0.9-dev",
   "description": "Yoeman generator for Salted Herring base styles",
   "homepage": "https://github.com/salted-herring/generator-sh-base-styles",
   "author": {
