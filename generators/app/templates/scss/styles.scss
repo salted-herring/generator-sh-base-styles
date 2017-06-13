@@ -7,7 +7,7 @@
 /**
  * Import external libraries.
  * */
-@import 'compass';
+// @import 'compass';
 @import 'susy';
 @import 'breakpoint';
 @import 'h5bp';
@@ -20,14 +20,8 @@
         'config/mixins',
         'config/grid',
         'config/fonts',
-        'config/sprite',
         'config/modifiers',
         'config/typography';
-
-/**
- * Import Sprite sheet.
- * */
-// @include retina-sprite-add(spritesheet, 'sprites/*.png', 'retina_sprites/*.png');
 
 @include h5bp-normalize;
 @include h5bp-base-styles;
@@ -50,13 +44,13 @@
  * Element overrides.
  * */
 html {
-    @include box-sizing(border-box);
+    box-sizing: border-box;
 }
 
 *,
 *:before,
 *:after {
-  @include box-sizing(inherit);
+  box-sizing: inherit;
 }
 
 /**

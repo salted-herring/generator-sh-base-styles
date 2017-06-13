@@ -195,16 +195,16 @@ module.exports = yeoman.Base.extend({
       }
     }
 
-    this.gruntfile.insertConfig('compass', JSON.stringify(_config));
-    this.gruntfile.loadNpmTasks('grunt-contrib-compass');
-    this.gruntfile.registerTask('css', ['compass']);
+    // this.gruntfile.insertConfig('compass', JSON.stringify(_config));
+    // this.gruntfile.loadNpmTasks('grunt-contrib-compass');
+    // this.gruntfile.registerTask('css', ['compass']);
   },
 
   install: function () {
     this.installDependencies({
       callback: function() {
 //         console.log(chalk.gray('Writing the grid config...'));
-        this.spawnCommand('grunt', ['grid', 'compass:dev']);
+        this.spawnCommand('grunt', ['grid']);
       }.bind(this)
     });
   },
