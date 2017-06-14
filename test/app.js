@@ -12,7 +12,14 @@ describe('generator-sh-base-styles:app', function () {
 
   it('creates files', function () {
     assert.file([
-      'dummyfile.txt'
+      'package.json',
+      'gulpfile.js',
+      'index.html',
+      'bower.json'
     ]);
   });
+
+  it('removes grunt file', function() {
+    assert.noFile(['Gruntfile.js']);
+  })
 });

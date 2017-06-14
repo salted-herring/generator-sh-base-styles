@@ -67,21 +67,6 @@ module.exports = yeoman.Base.extend({
       this.destinationPath('scss')
     );
 
-    // this.fs.copy(
-    //   this.templatePath('config.rb'),
-    //   this.destinationPath('config.rb')
-    // );
-
-    // this.fs.copy(
-    //   this.templatePath('Gemfile'),
-    //   this.destinationPath('Gemfile')
-    // );
-
-    // this.fs.copy(
-    //   this.templatePath('watcher-compass.sh'),
-    //   this.destinationPath('watcher-compass.sh')
-    // );
-
     this.fs.copy(
       this.templatePath('package.json'),
       this.destinationPath('package.json')
@@ -91,11 +76,6 @@ module.exports = yeoman.Base.extend({
       this.templatePath('gulpfile.js'),
       this.destinationPath('gulpfile.js')
     );
-
-    // this.fs.copy(
-    //   this.templatePath('.ruby-version'),
-    //   this.destinationPath('.ruby-version')
-    // );
 
     this.fs.copy(
       this.templatePath('index.html'),
@@ -178,7 +158,6 @@ module.exports = yeoman.Base.extend({
     this.gruntfile.insertConfig('\'string-replace\'', _json);
     this.gruntfile.loadNpmTasks('grunt-string-replace');
     this.gruntfile.registerTask('grid', ['string-replace']);
-
   },
 
   install: function () {
@@ -191,5 +170,8 @@ module.exports = yeoman.Base.extend({
   },
 
   end: function() {
+      //this.fs.delete(this.destinationPath('Gruntfile.js'));
+      console.log(chalk.white('Sweet!'));
+      console.log(chalk.red('run ') + chalk.yellow('gulp watch') + chalk.red(' to continuously compile your css!'));
   }
 });
