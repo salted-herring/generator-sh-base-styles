@@ -16,12 +16,15 @@ Then generate your new project:
 yo sh-base-styles
 ```
 
-## Getting To Know Yeoman
+## Autoprefixing css
 
- * Yeoman has a heart of gold.
- * Yeoman is a person with feelings and opinions, but is very easy to work with.
- * Yeoman can be too opinionated at times but is easily convinced not to be.
- * Feel free to [learn more about Yeoman](http://yeoman.io/).
+The css uses auto prfexing via [postcss](https://github.com/postcss/autoprefixer)
+
+If you can, you should use stats from your own Google analytics account. See:
+
+https://github.com/ai/browserslist#custom-usage-data
+
+
 
 ## License
 
