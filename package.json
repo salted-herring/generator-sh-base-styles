@@ -18,6 +18,10 @@
     "salted herring",
     "scss",
     "yeoman-generator"
+    "gulp",
+    "susy",
+    "boilerplate",
+    "grid"
   ],
   "dependencies": {
     "chalk": "^1.0.0",
